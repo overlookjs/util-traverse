@@ -14,7 +14,9 @@ module.exports = function itExports(traverseMethods) {
 	describe('methods', () => {
 		it.each([
 			'traverse',
-			'traverseAsync'
+			'traverseChildren',
+			'traverseAsync',
+			'traverseChildrenAsync'
 		])('%s', (key) => {
 			expect(traverseMethods[key]).toBeFunction();
 		});

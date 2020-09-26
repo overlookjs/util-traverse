@@ -2,7 +2,6 @@
 [![Build Status](https://img.shields.io/travis/overlookjs/util-traverse/master.svg)](https://travis-ci.org/overlookjs/util-traverse)
 [![Dependency Status](https://img.shields.io/david/overlookjs/util-traverse.svg)](https://david-dm.org/overlookjs/util-traverse)
 [![Dev dependency Status](https://img.shields.io/david/dev/overlookjs/util-traverse.svg)](https://david-dm.org/overlookjs/util-traverse)
-[![Greenkeeper badge](https://badges.greenkeeper.io/overlookjs/util-traverse.svg)](https://greenkeeper.io/)
 [![Coverage Status](https://img.shields.io/coveralls/overlookjs/util-traverse/master.svg)](https://coveralls.io/r/overlookjs/util-traverse)
 
 # Overlook framework utility to traverse router tree
@@ -11,7 +10,45 @@ Part of the [Overlook framework](https://overlookjs.github.io/).
 
 ## Usage
 
-This module is under development and not ready for use yet.
+### `traverse( route, fn )`
+
+Traverses routes tree, calling `fn()` with each route in the tree.
+
+Traversal order is depth first.
+
+```js
+const Route = require('@overlook/route');
+const { traverse } = require('@overlook/util-traverse');
+
+const root = new Route( { name: 'root' } );
+const child1 = new Route( { name: 'child1' } );
+const child2 = new Route( { name: 'child2' } );
+const childOfChild1 = new Route( { name: 'childOfChild1' } );
+root.attachChild( child1 );
+root.attachChild( child2 );
+child1.attachChild( childOfChild1 );
+
+traverse( root, route => console.log( route.name ) );
+// Logs 'root', 'child1', 'childOfChild1', 'child2'
+```
+
+### `traverseChildren( route, fn )`
+
+Same as `traverse()` except does not call `fn()` on the starting route, only children and nested children.
+
+### `traverseAsync( route, fn )`
+
+Async version of `traverse()`. Returns a promise.
+
+`fn()` should return a promise.
+
+Siblings will be visited in parallel.
+
+The promise returned from `fn()` for each route will be awaited before calling `fn()` on its children.
+
+### `traverseChildrenAsync( route, fn )`
+
+Same as `traverseAsync()` except does not call `fn()` on the starting route, only children and nested children.
 
 ## Versioning
 

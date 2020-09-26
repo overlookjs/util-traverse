@@ -11,5 +11,7 @@ import traverseMethods from '../lib/index.js';
 export default traverseMethods;
 export const {
 	traverse,
-	traverseAsync
+	traverseChildren,
+	traverseAsync,
+	traverseChildrenAsync
 } = traverseMethods;
