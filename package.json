@@ -1,6 +1,6 @@
 {
   "name": "@overlook/util-traverse",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Overlook framework utility to traverse router tree",
   "main": "index.js",
   "module": "es/index.js",
